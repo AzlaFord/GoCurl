@@ -20,7 +20,7 @@ func main() {
 	for i := 3; i < len(os.Args); i++ {
 		if args[i] == "-H" {
 			x := strings.SplitN(args[i+1], ":", 2)
-			structRequest.Headers[x[0]] = x[1]
+			structRequest.Headers[x[0]] = strings.TrimSpace(x[1])
 			i++
 		}
 		if args[i] == "-D" || args[i] == "-d" {
