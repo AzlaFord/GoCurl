@@ -31,8 +31,9 @@ func main() {
 	if !strings.HasPrefix(structRequest.URL, "https://") && !strings.HasPrefix(structRequest.URL, "http://") {
 		structRequest.URL = "http://" + structRequest.URL
 	}
-	fmt.Println("Method:", structRequest.Method)
-	fmt.Println("URL:", structRequest.URL)
-	fmt.Println("Headers", structRequest.Headers)
-	fmt.Println("Body", structRequest.Body)
+	for _, method := range requests.GetMethodsActions() {
+		if structRequest.Method == method.Method {
+			method.Action(structRequest)
+		}
+	}
 }

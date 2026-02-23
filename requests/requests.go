@@ -2,6 +2,7 @@ package requests
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -22,5 +23,6 @@ func GetRequest(req RequestOptions) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(res)
+	
+	fmt.Println(res.Body)
 }
