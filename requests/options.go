@@ -39,5 +39,5 @@ func handlerBody(i *int, args []string, req *RequestOptions) {
 }
 
 func handlerIncludeHeaders(i *int, args []string, req *RequestOptions) {
-
+	req.Headers["__include_headers__"] = "true"
 }
