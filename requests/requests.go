@@ -16,6 +16,7 @@ func GetMethodsActions() []MethodsType {
 	return []MethodsType{
 		{"GET", GetRequest},
 		{"POST", PostRequest},
+		{"DELETE", DeleteRequest},
 	}
 }
 
@@ -57,5 +58,29 @@ func PostRequest(req RequestOptions) {
 		return
 	}
 	defer response.Body.Close()
+	fmt.Printf("%s %6s", response.Status, body)
+}
+
+func DeleteRequest(req RequestOptions) {
+	request, err := http.NewRequest(req.Method, req.URL, nil)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	for k, v := range req.Headers {
+		request.Header.Set(k, v)
+	}
+	client := &http.Client{}
+	response, err := client.Do(request)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer response.Body.Close()
+	body, err := io.ReadAll(response.Body)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	fmt.Printf("%s %6s", response.Status, body)
 }
